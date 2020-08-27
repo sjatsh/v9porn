@@ -258,7 +258,7 @@ public class AppApiHelper implements ApiHelper {
 //                    }
 //                    return msg;
 //                });
-        return v9PornServiceApi.favoriteVideo(videoId, uId, uvid,HeaderUtils.getIndexHeader(addressHelper)).map(code -> {
+        return v9PornServiceApi.favoriteVideo(videoId, uId, uvid, HeaderUtils.getIndexHeader(addressHelper)).map(code -> {
             String msg;
             switch (Integer.parseInt(code)) {
                 case FavoriteJsonResult.FAVORITE_SUCCESS:
@@ -440,10 +440,13 @@ public class AppApiHelper implements ApiHelper {
     public Observable<PxgavResultWithBlockId> loadPxgavListByCategory(String category, boolean pullToRefresh) {
         DynamicKey dynamicKey = new DynamicKey(category);
         EvictDynamicKey evictDynamicKey = new EvictDynamicKey(pullToRefresh);
+
         if ("index".equals(category)) {
-            return action(cacheProviders.cacheWithLimitTime(pavServiceApi.pigAvVideoList(addressHelper.getPavAddress()), dynamicKey, evictDynamicKey));
+            Observable<String> avVideoList = pavServiceApi.pigAvVideoList(addressHelper.getPavAddress());
+            return action(cacheProviders.cacheWithLimitTime(avVideoList, dynamicKey, evictDynamicKey));
         } else {
-            return action(cacheProviders.cacheWithLimitTime(pavServiceApi.pigAvVideoList(addressHelper.getPavAddress() + category + "av線上看"), dynamicKey, evictDynamicKey));
+            Observable<String> avVideoList = pavServiceApi.pigAvVideoList(addressHelper.getPavAddress() + category + "av線上看");
+            return action(cacheProviders.cacheWithLimitTime(avVideoList, dynamicKey, evictDynamicKey));
         }
     }
 

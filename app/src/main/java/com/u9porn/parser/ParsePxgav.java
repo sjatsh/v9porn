@@ -86,26 +86,23 @@ public class ParsePxgav {
         List<PxgavModel> pxgavModelList = new ArrayList<>();
         for (Element element : items) {
             PxgavModel pxgavModel = new PxgavModel();
+
             Element a = element.selectFirst("a");
             String title = a.attr("title");
             pxgavModel.setTitle(title);
+
             String contentUrl = a.attr("href");
             pxgavModel.setContentUrl(contentUrl);
+
             String imgUrl = a.attr("style");
-
-            String bigImg = StringUtils.subString(imgUrl, imgUrl.indexOf("url(") + 4, imgUrl.lastIndexOf("-"));
+            String bigImg = StringUtils.subString(imgUrl, imgUrl.indexOf("url(") + 4, imgUrl.length() - 2);
             Logger.t(TAG).d(bigImg);
-            if (TextUtils.isEmpty(bigImg)) {
-                pxgavModel.setImgUrl(imgUrl);
-            } else {
-                pxgavModel.setImgUrl(bigImg + ".jpg");
-            }
-            int beginIndex = bigImg.lastIndexOf("/");
-            int endIndex = bigImg.lastIndexOf("-");
-            String pId = StringUtils.subString(imgUrl, beginIndex + 1, endIndex);
-            //Logger.t(TAG).d(pId);
-            pxgavModel.setpId(pId);
+            pxgavModel.setImgUrl(bigImg);
 
+            String pId = StringUtils.subString(bigImg, bigImg.lastIndexOf("/") + 1, bigImg.lastIndexOf("-"));
+
+            Logger.t(TAG).d(pId);
+            pxgavModel.setpId(pId);
             pxgavModelList.add(pxgavModel);
         }
         pxgavResultWithBlockId.setPxgavModelList(pxgavModelList);
