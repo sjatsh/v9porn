@@ -1,17 +1,14 @@
 package com.u9porn.behavior;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Rect;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.orhanobut.logger.Logger;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.u9porn.R;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
+
 
 /**
  * 显示隐藏

@@ -1,7 +1,8 @@
 package com.u9porn.ui.porn9forum;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -40,41 +41,30 @@ public class ForumPresenter extends MvpBasePresenter<ForumView> implements IForu
     @Override
     public void loadForumIndexListData(final boolean pullToRefresh) {
         dataManager.loadPorn9ForumIndex()
-                .compose(RxSchedulersHelper.<List<PinnedHeaderEntity<F9PronItem>>>ioMainThread())
-                .compose(provider.<List<PinnedHeaderEntity<F9PronItem>>>bindUntilEvent(Lifecycle.Event.ON_DESTROY))
+                .compose(RxSchedulersHelper.ioMainThread())
+                .compose(provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY))
                 .subscribe(new CallBackWrapper<List<PinnedHeaderEntity<F9PronItem>>>() {
 
                     @Override
                     public void onBegin(Disposable d) {
-                        ifViewAttached(new ViewAction<ForumView>() {
-                            @Override
-                            public void run(@NonNull ForumView view) {
-                                if (pullToRefresh) {
-                                    view.showLoading(pullToRefresh);
-                                }
+                        ifViewAttached(view -> {
+                            if (pullToRefresh) {
+                                view.showLoading(pullToRefresh);
                             }
                         });
                     }
 
                     @Override
                     public void onSuccess(final List<PinnedHeaderEntity<F9PronItem>> pinnedHeaderEntityList) {
-                        ifViewAttached(new ViewAction<ForumView>() {
-                            @Override
-                            public void run(@NonNull ForumView view) {
-                                view.setForumIndexListData(pinnedHeaderEntityList);
-                                view.showContent();
-                            }
+                        ifViewAttached(view -> {
+                            view.setForumIndexListData(pinnedHeaderEntityList);
+                            view.showContent();
                         });
                     }
 
                     @Override
                     public void onError(final String msg, int code) {
-                        ifViewAttached(new ViewAction<ForumView>() {
-                            @Override
-                            public void run(@NonNull ForumView view) {
-                                view.showError(msg);
-                            }
-                        });
+                        ifViewAttached(view -> view.showError(msg));
                     }
                 });
     }
@@ -85,60 +75,46 @@ public class ForumPresenter extends MvpBasePresenter<ForumView> implements IForu
             page = 1;
         }
         dataManager.loadPorn9ForumListData(fid, page)
-                .map(new Function<BaseResult<List<F9PronItem>>, List<F9PronItem>>() {
-                    @Override
-                    public List<F9PronItem> apply(BaseResult<List<F9PronItem>> baseResult) throws Exception {
-                        if (page == 1) {
-                            totalPage = baseResult.getTotalPage();
-                        }
-                        return baseResult.getData();
+                .map(baseResult -> {
+                    if (page == 1) {
+                        totalPage = baseResult.getTotalPage();
                     }
+                    return baseResult.getData();
                 })
-                .compose(RxSchedulersHelper.<List<F9PronItem>>ioMainThread())
-                .compose(provider.<List<F9PronItem>>bindUntilEvent(Lifecycle.Event.ON_DESTROY))
+                .compose(RxSchedulersHelper.ioMainThread())
+                .compose(provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY))
                 .subscribe(new CallBackWrapper<List<F9PronItem>>() {
 
                     @Override
                     public void onBegin(Disposable d) {
-                        ifViewAttached(new ViewAction<ForumView>() {
-                            @Override
-                            public void run(@NonNull ForumView view) {
-                                if (pullToRefresh) {
-                                    view.showLoading(pullToRefresh);
-                                }
+                        ifViewAttached(view -> {
+                            if (pullToRefresh) {
+                                view.showLoading(pullToRefresh);
                             }
                         });
                     }
 
                     @Override
                     public void onSuccess(final List<F9PronItem> f9PronItems) {
-                        ifViewAttached(new ViewAction<ForumView>() {
-                            @Override
-                            public void run(@NonNull ForumView view) {
-                                if (page == 1) {
-                                    view.setForumListData(f9PronItems);
-                                    view.showContent();
-                                } else {
-                                    view.setMoreData(f9PronItems);
-                                }
-                                //已经最后一页了
-                                if (page >= totalPage) {
-                                    view.noMoreData();
-                                } else {
-                                    page++;
-                                }
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.setForumListData(f9PronItems);
+                                view.showContent();
+                            } else {
+                                view.setMoreData(f9PronItems);
+                            }
+                            //已经最后一页了
+                            if (page >= totalPage) {
+                                view.noMoreData();
+                            } else {
+                                page++;
                             }
                         });
                     }
 
                     @Override
                     public void onError(final String msg, int code) {
-                        ifViewAttached(new ViewAction<ForumView>() {
-                            @Override
-                            public void run(@NonNull ForumView view) {
-                                view.showError(msg);
-                            }
-                        });
+                        ifViewAttached(view -> view.showError(msg));
                     }
                 });
     }

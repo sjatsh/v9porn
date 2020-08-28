@@ -1,8 +1,8 @@
 package com.u9porn.ui.axgle.search;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -51,50 +51,41 @@ public class SearchAxgleVideoPresenter extends MvpBasePresenter<SearchAxgleVideo
                     }
                 })
                 .compose(RxSchedulersHelper.<List<AxgleVideo>>ioMainThread())
-                .compose(provider.<List<AxgleVideo>>bindUntilEvent(Lifecycle.Event.ON_STOP))
+                .compose(provider.bindUntilEvent(Lifecycle.Event.ON_STOP))
                 .subscribe(new CallBackWrapper<List<AxgleVideo>>() {
                     @Override
                     public void onBegin(Disposable d) {
-                        ifViewAttached(new ViewAction<SearchAxgleVideoView>() {
-                            @Override
-                            public void run(@NonNull SearchAxgleVideoView view) {
-                                if (page == 1) {
-                                    view.showLoading(pullToRefresh);
-                                }
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.showLoading(pullToRefresh);
                             }
                         });
                     }
 
                     @Override
                     public void onSuccess(final List<AxgleVideo> axgleVideos) {
-                        ifViewAttached(new ViewAction<SearchAxgleVideoView>() {
-                            @Override
-                            public void run(@NonNull SearchAxgleVideoView view) {
-                                if (page == 1) {
-                                    view.setData(axgleVideos);
-                                } else {
-                                    view.setMoreData(axgleVideos);
-                                }
-                                if (isHaveMore) {
-                                    page++;
-                                } else {
-                                    view.noMoreData();
-                                }
-                                view.showContent();
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.setData(axgleVideos);
+                            } else {
+                                view.setMoreData(axgleVideos);
                             }
+                            if (isHaveMore) {
+                                page++;
+                            } else {
+                                view.noMoreData();
+                            }
+                            view.showContent();
                         });
                     }
 
                     @Override
                     public void onError(final String msg, final int code) {
-                        ifViewAttached(new ViewAction<SearchAxgleVideoView>() {
-                            @Override
-                            public void run(@NonNull SearchAxgleVideoView view) {
-                                if (page == 1) {
-                                    view.showError(msg);
-                                } else {
-                                    view.loadMoreFailed();
-                                }
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.showError(msg);
+                            } else {
+                                view.loadMoreFailed();
                             }
                         });
                     }

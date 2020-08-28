@@ -1,9 +1,10 @@
 package com.u9porn.adapter;
 
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.text.format.Formatter;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;

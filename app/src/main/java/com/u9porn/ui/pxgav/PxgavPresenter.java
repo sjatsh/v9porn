@@ -1,8 +1,9 @@
 package com.u9porn.ui.pxgav;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -41,7 +42,7 @@ public class PxgavPresenter extends MvpBasePresenter<PxgavView> implements IPxga
         }
         dataManager.loadPxgavListByCategory(category, pullToRefresh)
                 .compose(RxSchedulersHelper.<PxgavResultWithBlockId>ioMainThread())
-                .compose(provider.<PxgavResultWithBlockId>bindUntilEvent(Lifecycle.Event.ON_DESTROY))
+                .compose(provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY))
                 .subscribe(new CallBackWrapper<PxgavResultWithBlockId>() {
 
                     @Override

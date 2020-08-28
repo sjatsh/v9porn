@@ -1,9 +1,10 @@
 package com.u9porn.adapter;
 
-import android.support.annotation.Nullable;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;

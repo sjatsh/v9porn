@@ -1,8 +1,9 @@
 package com.u9porn.ui.images.huaban;
 
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -41,12 +42,7 @@ public class HuaBanPresenter extends MvpBasePresenter<HuaBanView> implements IHu
 
                     @Override
                     public void onBegin(Disposable d) {
-                        ifViewAttached(new ViewAction<HuaBanView>() {
-                            @Override
-                            public void run(@NonNull HuaBanView view) {
-                                view.showLoading(pullToRefresh);
-                            }
-                        });
+                        ifViewAttached(view -> view.showLoading(pullToRefresh));
                     }
 
                     @Override

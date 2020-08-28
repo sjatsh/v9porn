@@ -1,7 +1,8 @@
 package com.u9porn.ui.images.meizitu;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -57,43 +58,30 @@ public class MeiZiTuPresenter extends MvpBasePresenter<MeiZiTuView> implements I
 
                     @Override
                     public void onBegin(Disposable d) {
-                        ifViewAttached(new ViewAction<MeiZiTuView>() {
-                            @Override
-                            public void run(@NonNull MeiZiTuView view) {
-                                view.showLoading(pullToRefresh);
-                            }
-                        });
+                        ifViewAttached(view -> view.showLoading(pullToRefresh));
                     }
 
                     @Override
                     public void onSuccess(final List<MeiZiTu> meiZiTus) {
-                        ifViewAttached(new ViewAction<MeiZiTuView>() {
-                            @Override
-                            public void run(@NonNull MeiZiTuView view) {
-                                if (page == 1) {
-                                    view.setData(meiZiTus);
-                                    view.showContent();
-                                } else {
-                                    view.setMoreData(meiZiTus);
-                                }
-                                //已经最后一页了
-                                if (page >= totalPage) {
-                                    view.noMoreData();
-                                } else {
-                                    page++;
-                                }
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.setData(meiZiTus);
+                                view.showContent();
+                            } else {
+                                view.setMoreData(meiZiTus);
+                            }
+                            //已经最后一页了
+                            if (page >= totalPage) {
+                                view.noMoreData();
+                            } else {
+                                page++;
                             }
                         });
                     }
 
                     @Override
                     public void onError(final String msg, int code) {
-                        ifViewAttached(new ViewAction<MeiZiTuView>() {
-                            @Override
-                            public void run(@NonNull MeiZiTuView view) {
-                                view.showError(msg);
-                            }
-                        });
+                        ifViewAttached(view -> view.showError(msg));
                     }
                 });
 

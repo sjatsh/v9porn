@@ -1,14 +1,16 @@
 package com.u9porn.ui.porn9video.author;
 
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.helper.loadviewhelper.help.OnLoadViewListener;
@@ -16,13 +18,11 @@ import com.helper.loadviewhelper.load.LoadViewHelper;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.u9porn.R;
 import com.u9porn.adapter.V91PornAdapter;
-import com.u9porn.constants.KeysActivityRequestResultCode;
 import com.u9porn.data.db.entity.V9PornItem;
 import com.u9porn.ui.MvpActivity;
 import com.u9porn.utils.LoadHelperUtils;
 import com.u9porn.constants.Keys;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -74,31 +74,19 @@ public class AuthorActivity extends MvpActivity<AuthorView, AuthorPresenter> imp
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mV91PornAdapter);
 
-        mV91PornAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                V9PornItem v9PornItems = (V9PornItem) adapter.getData().get(position);
-                Intent intent = new Intent();
-                intent.putExtra(Keys.KEY_INTENT_V9PORN_ITEM, v9PornItems);
-                //setResult(KeysActivityRequestResultCode.AUTHOR_ACTIVITY_RESULT_CODE, intent);
-                onBackPressed();
-            }
+        mV91PornAdapter.setOnItemClickListener((adapter, view, position) -> {
+            V9PornItem v9PornItems = (V9PornItem) adapter.getData().get(position);
+            Intent intent = new Intent();
+            intent.putExtra(Keys.KEY_INTENT_V9PORN_ITEM, v9PornItems);
+            //setResult(KeysActivityRequestResultCode.AUTHOR_ACTIVITY_RESULT_CODE, intent);
+            onBackPressed();
         });
-        mV91PornAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-
-                presenter.authorVideos(uid, false);
-            }
-        }, recyclerView);
+        mV91PornAdapter.setOnLoadMoreListener(() -> presenter.authorVideos(uid, false), recyclerView);
 
         helper = new LoadViewHelper(recyclerView);
-        helper.setListener(new OnLoadViewListener() {
-            @Override
-            public void onRetryClick() {
-                swipeLayout.setEnabled(false);
-                presenter.authorVideos(uid, true);
-            }
+        helper.setListener(() -> {
+            swipeLayout.setEnabled(false);
+            presenter.authorVideos(uid, true);
         });
         presenter.authorVideos(uid, false);
     }

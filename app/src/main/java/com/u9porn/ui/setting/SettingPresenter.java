@@ -1,8 +1,9 @@
 package com.u9porn.ui.setting;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;

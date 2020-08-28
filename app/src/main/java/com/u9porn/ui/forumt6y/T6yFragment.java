@@ -2,10 +2,11 @@ package com.u9porn.ui.forumt6y;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.u9porn.R;
 import com.u9porn.ui.BaseFragment;

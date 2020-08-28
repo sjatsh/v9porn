@@ -1,8 +1,9 @@
 package com.u9porn.ui.axgle.play;
 
-import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.awesapp.isafe.svs.parsers.PSVS21;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
@@ -55,22 +56,12 @@ public class AxglePlayPresenter extends MvpBasePresenter<AxglePlayView> implemen
                 , vid
                 , ts
                 , PSVS21.computeHash(new PSVS21.StubContext(context), vid, ts));
-        ifViewAttached(new ViewAction<AxglePlayView>() {
-            @Override
-            public void run(@NonNull AxglePlayView view) {
-                view.showLoading();
-            }
-        });
+        ifViewAttached(view -> view.showLoading());
         dataManager.getPlayVideoUrl(url).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 final String url = response.raw().request().url().toString();
-                ifViewAttached(new ViewAction<AxglePlayView>() {
-                    @Override
-                    public void run(@NonNull AxglePlayView view) {
-                        view.getVideoUrlSuccess(url);
-                    }
-                });
+                ifViewAttached(view -> view.getVideoUrlSuccess(url));
             }
 
             @Override

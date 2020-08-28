@@ -1,8 +1,9 @@
 package com.u9porn.ui.proxy;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -11,7 +12,6 @@ import com.u9porn.data.model.BaseResult;
 import com.u9porn.data.model.ProxyModel;
 import com.u9porn.rxjava.CallBackWrapper;
 import com.u9porn.rxjava.RxSchedulersHelper;
-import com.u9porn.utils.AddressHelper;
 import com.u9porn.utils.RegexUtils;
 import com.u9porn.constants.Constants;
 

@@ -1,8 +1,9 @@
 package com.u9porn.ui.porn9video.favorite;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -136,7 +137,7 @@ public class FavoritePresenter extends MvpBasePresenter<FavoriteView> implements
                 @Override
                 public void run(@NonNull FavoriteView view) {
                     if (user != null) {
-                       // Bugsnag.notify(new Throwable(TAG + " user info: " + user.toString()), Severity.WARNING);
+                        // Bugsnag.notify(new Throwable(TAG + " user info: " + user.toString()), Severity.WARNING);
                     }
                     view.showError("用户信息不完整，请重新登录后重试！");
                 }

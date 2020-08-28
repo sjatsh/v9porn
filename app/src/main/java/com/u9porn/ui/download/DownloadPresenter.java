@@ -1,8 +1,9 @@
 package com.u9porn.ui.download;
 
-import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.liulishuo.filedownloader.FileDownloader;

@@ -1,8 +1,9 @@
 package com.u9porn.di.module;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.orhanobut.logger.Logger;

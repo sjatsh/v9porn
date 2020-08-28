@@ -1,7 +1,7 @@
 package com.u9porn.ui.axgle;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
+
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -55,46 +55,37 @@ public class AxglePresenter extends MvpBasePresenter<AxgleView> implements IAxgl
 
                     @Override
                     public void onSubscribe(Disposable d) {
-                        ifViewAttached(new ViewAction<AxgleView>() {
-                            @Override
-                            public void run(@NonNull AxgleView view) {
-                                if (page == 1) {
-                                    view.showLoading(pullToRefresh);
-                                }
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.showLoading(pullToRefresh);
                             }
                         });
                     }
 
                     @Override
                     public void onSuccess(final List<AxgleVideo> axgleVideos) {
-                        ifViewAttached(new ViewAction<AxgleView>() {
-                            @Override
-                            public void run(@NonNull AxgleView view) {
-                                if (page == 1) {
-                                    view.setData(axgleVideos);
-                                } else {
-                                    view.setMoreData(axgleVideos);
-                                }
-                                if (isHaveMore) {
-                                    page++;
-                                } else {
-                                    view.noMoreData();
-                                }
-                                view.showContent();
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.setData(axgleVideos);
+                            } else {
+                                view.setMoreData(axgleVideos);
                             }
+                            if (isHaveMore) {
+                                page++;
+                            } else {
+                                view.noMoreData();
+                            }
+                            view.showContent();
                         });
                     }
 
                     @Override
                     public void onError(final String msg, int code) {
-                        ifViewAttached(new ViewAction<AxgleView>() {
-                            @Override
-                            public void run(@NonNull AxgleView view) {
-                                if (page == 1) {
-                                    view.showError(msg);
-                                } else {
-                                    view.loadMoreFailed();
-                                }
+                        ifViewAttached(view -> {
+                            if (page == 1) {
+                                view.showError(msg);
+                            } else {
+                                view.loadMoreFailed();
                             }
                         });
                     }

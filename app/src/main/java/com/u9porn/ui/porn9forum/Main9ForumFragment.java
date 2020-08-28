@@ -1,7 +1,8 @@
 package com.u9porn.ui.porn9forum;
 
 
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
 
 import com.u9porn.data.db.entity.Category;
 import com.u9porn.ui.basemain.BaseMainFragment;

@@ -5,20 +5,21 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.flymegoc.exolibrary.widget.ExoVideoControlsMobile;
 import com.flymegoc.exolibrary.widget.ExoVideoView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jaeger.library.StatusBarUtil;
 import com.orhanobut.logger.Logger;
 import com.sdsmdg.tastytoast.TastyToast;

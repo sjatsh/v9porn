@@ -1,7 +1,8 @@
 package com.u9porn.ui.update;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -40,7 +41,7 @@ public class UpdatePresenter extends MvpBasePresenter<UpdateView> implements IUp
         dataManager.checkUpdate()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(provider.<UpdateVersion>bindUntilEvent(Lifecycle.Event.ON_DESTROY))
+                .compose(provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY))
                 .subscribe(new CallBackWrapper<UpdateVersion>() {
                     @Override
                     public void onBegin(Disposable d) {
@@ -64,12 +65,7 @@ public class UpdatePresenter extends MvpBasePresenter<UpdateView> implements IUp
                             if (updateListener != null) {
                                 updateListener.noNeedUpdate();
                             } else {
-                                ifViewAttached(new ViewAction<UpdateView>() {
-                                    @Override
-                                    public void run(@NonNull UpdateView view) {
-                                        view.noNeedUpdate();
-                                    }
-                                });
+                                ifViewAttached(view -> view.noNeedUpdate());
                             }
 
                         }

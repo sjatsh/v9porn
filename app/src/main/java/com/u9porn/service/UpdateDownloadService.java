@@ -8,17 +8,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.FileProvider;
 import android.text.format.Formatter;
 import android.widget.RemoteViews;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
+import androidx.multidex.BuildConfig;
 
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.orhanobut.logger.Logger;
-import com.u9porn.BuildConfig;
 import com.u9porn.R;
 import com.u9porn.data.model.UpdateVersion;
 import com.u9porn.constants.Constants;

@@ -1,8 +1,9 @@
 package com.u9porn.ui.google;
 
-import android.arch.lifecycle.Lifecycle;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.orhanobut.logger.Logger;

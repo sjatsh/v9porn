@@ -1,8 +1,8 @@
 package com.u9porn.ui.about;
 
-import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.orhanobut.logger.Logger;
@@ -54,34 +54,25 @@ public class AboutPresenter extends MvpBasePresenter<AboutView> implements IAbou
         updatePresenter.checkUpdate(versionCode, new UpdatePresenter.UpdateListener() {
             @Override
             public void needUpdate(final UpdateVersion updateVersion) {
-                ifViewAttached(new ViewAction<AboutView>() {
-                    @Override
-                    public void run(@NonNull AboutView view) {
-                        view.needUpdate(updateVersion);
-                        view.showContent();
-                    }
+                ifViewAttached(view -> {
+                    view.needUpdate(updateVersion);
+                    view.showContent();
                 });
             }
 
             @Override
             public void noNeedUpdate() {
-                ifViewAttached(new ViewAction<AboutView>() {
-                    @Override
-                    public void run(@NonNull AboutView view) {
-                        view.noNeedUpdate();
-                        view.showContent();
-                    }
+                ifViewAttached(view -> {
+                    view.noNeedUpdate();
+                    view.showContent();
                 });
             }
 
             @Override
             public void checkUpdateError(final String message) {
-                ifViewAttached(new ViewAction<AboutView>() {
-                    @Override
-                    public void run(@NonNull AboutView view) {
-                        view.checkUpdateError(message);
-                        view.showContent();
-                    }
+                ifViewAttached(view -> {
+                    view.checkUpdateError(message);
+                    view.showContent();
                 });
             }
         });
@@ -120,32 +111,17 @@ public class AboutPresenter extends MvpBasePresenter<AboutView> implements IAbou
 
                     @Override
                     public void onBegin(Disposable d) {
-                        ifViewAttached(new ViewAction<AboutView>() {
-                            @Override
-                            public void run(@NonNull AboutView view) {
-                                view.showCleanDialog("清除缓存中，请稍后...");
-                            }
-                        });
+                        ifViewAttached(view -> view.showCleanDialog("清除缓存中，请稍后..."));
                     }
 
                     @Override
                     public void onSuccess(Boolean aBoolean) {
-                        ifViewAttached(new ViewAction<AboutView>() {
-                            @Override
-                            public void run(@NonNull AboutView view) {
-                                view.cleanCacheSuccess("清除缓存成功！");
-                            }
-                        });
+                        ifViewAttached(view -> view.cleanCacheSuccess("清除缓存成功！"));
                     }
 
                     @Override
                     public void onError(String msg, int code) {
-                        ifViewAttached(new ViewAction<AboutView>() {
-                            @Override
-                            public void run(@NonNull AboutView view) {
-                                view.cleanCacheFailure("清除缓存失败！");
-                            }
-                        });
+                        ifViewAttached(view -> view.cleanCacheFailure("清除缓存失败！"));
                     }
                 });
     }
@@ -160,27 +136,17 @@ public class AboutPresenter extends MvpBasePresenter<AboutView> implements IAbou
         }).subscribeOn(Schedulers.io())
                 .delay(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(provider.<String>bindUntilEvent(Lifecycle.Event.ON_DESTROY))
+                .compose(provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY))
                 .subscribe(new CallBackWrapper<String>() {
 
                     @Override
                     public void onSuccess(final String string) {
-                        ifViewAttached(new ViewAction<AboutView>() {
-                            @Override
-                            public void run(@NonNull AboutView view) {
-                                view.finishCountCacheFileSize(string);
-                            }
-                        });
+                        ifViewAttached(view -> view.finishCountCacheFileSize(string));
                     }
 
                     @Override
                     public void onError(String msg, int code) {
-                        ifViewAttached(new ViewAction<AboutView>() {
-                            @Override
-                            public void run(@NonNull AboutView view) {
-                                view.countCacheFileSizeError("计算缓存大小失败了");
-                            }
-                        });
+                        ifViewAttached(view -> view.countCacheFileSizeError("计算缓存大小失败了"));
                     }
                 });
     }
@@ -193,22 +159,12 @@ public class AboutPresenter extends MvpBasePresenter<AboutView> implements IAbou
                 .subscribe(new CallBackWrapper<String>() {
                     @Override
                     public void onSuccess(final String s) {
-                        ifViewAttached(new ViewAction<AboutView>() {
-                            @Override
-                            public void run(@NonNull AboutView view) {
-                                view.loadCommonQuestionsSuccess(s);
-                            }
-                        });
+                        ifViewAttached(view -> view.loadCommonQuestionsSuccess(s));
                     }
 
                     @Override
                     public void onError(final String msg, final int code) {
-                        ifViewAttached(new ViewAction<AboutView>() {
-                            @Override
-                            public void run(@NonNull AboutView view) {
-                                view.loadCommonQuestionsFailure(msg, code);
-                            }
-                        });
+                        ifViewAttached(view -> view.loadCommonQuestionsFailure(msg, code));
                     }
                 });
     }

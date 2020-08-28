@@ -1,7 +1,8 @@
 package com.u9porn.data.network.okhttp;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 import com.u9porn.data.network.Api;

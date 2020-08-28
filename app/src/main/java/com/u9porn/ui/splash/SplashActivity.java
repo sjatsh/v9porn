@@ -2,8 +2,9 @@ package com.u9porn.ui.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
 
 import com.orhanobut.logger.Logger;
 import com.u9porn.R;

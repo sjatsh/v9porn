@@ -1,7 +1,8 @@
 package com.u9porn.ui.porn9video.index;
 
-import android.arch.lifecycle.Lifecycle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -44,8 +45,8 @@ public class IndexPresenter extends MvpBasePresenter<IndexView> implements IInde
 
         dataManager.loadPorn9VideoIndex(cleanCache)
                 .retryWhen(new RetryWhenProcess(RetryWhenProcess.PROCESS_TIME))
-                .compose(RxSchedulersHelper.<List<V9PornItem>>ioMainThread())
-                .compose(provider.<List<V9PornItem>>bindUntilEvent(Lifecycle.Event.ON_DESTROY))
+                .compose(RxSchedulersHelper.ioMainThread())
+                .compose(provider.bindUntilEvent(Lifecycle.Event.ON_DESTROY))
                 .subscribe(new CallBackWrapper<List<V9PornItem>>() {
                     @Override
                     public void onBegin(Disposable d) {
