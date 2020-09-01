@@ -59,8 +59,9 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
 
     private final String TAG = BasePlayVideo.class.getSimpleName();
 
-    @BindView(R.id.floatingToolbar)
-    FloatingToolbar floatingToolbar;
+//    @BindView(R.id.floatingToolbar)
+//    FloatingToolbar floatingToolbar;
+
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.app_bar_layout)
@@ -221,18 +222,18 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
     }
 
     private void initBottomMenu() {
-        floatingToolbar.attachFab(fab);
-        floatingToolbar.setClickListener(new FloatingToolbar.ItemClickListener() {
-            @Override
-            public void onItemClick(MenuItem item) {
-                onOptionsItemSelected(item);
-            }
-
-            @Override
-            public void onItemLongClick(MenuItem item) {
-
-            }
-        });
+//        floatingToolbar.attachFab(fab);
+//        floatingToolbar.setClickListener(new FloatingToolbar.ItemClickListener() {
+//            @Override
+//            public void onItemClick(MenuItem item) {
+//                onOptionsItemSelected(item);
+//            }
+//
+//            @Override
+//            public void onItemLongClick(MenuItem item) {
+//
+//            }
+//        });
     }
 
     /**
@@ -354,7 +355,7 @@ public abstract class BasePlayVideo extends MvpActivity<PlayVideoView, PlayVideo
             showMessage("向下滑动即可评论", TastyToast.INFO);
             return true;
         } else if (id == R.id.menu_play_close) {
-            floatingToolbar.hide();
+//            floatingToolbar.hide();
             return true;
         }
 

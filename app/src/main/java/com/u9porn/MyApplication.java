@@ -45,8 +45,10 @@ public class MyApplication extends DaggerApplication {
     public void onCreate() {
         super.onCreate();
         myApplication = this;
+
         initNightMode();
         AppLogger.initLogger();
+
         initLeakCanary();
         initLoadingHelper();
         initFileDownload();

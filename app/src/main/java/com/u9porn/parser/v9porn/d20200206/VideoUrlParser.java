@@ -16,32 +16,24 @@ public class VideoUrlParser extends BaseVideoPlayUrlParser implements VideoPlayU
 
     @Inject
     public VideoUrlParser() {
-
     }
 
     @Override
     public VideoResult parseVideoPlayUrl(String html, User user) {
+        Logger.t(TAG).d("原网页内容", html);
+
         VideoResult videoResult = new VideoResult();
-        //html= DevHtmlTools.getLocalHtml(MyApplication.getInstance(),"videourl.txt");
         Document document = Jsoup.parse(html);
-        Element htmlTag=document.select("html").first();
-        if(htmlTag!=null){
-            String htmlString=htmlTag.toString();
-        }
         Element element = document.getElementById("player_one");
 
-        String imgUrl=element.attr("poster");
-        String videoId= imgUrl.substring(imgUrl.indexOf("thumb")+6,imgUrl.lastIndexOf("."));
+        String imgUrl = element.attr("poster");
+        String videoId = imgUrl.substring(imgUrl.indexOf("thumb") + 6, imgUrl.lastIndexOf("."));
         videoResult.setVideoId(videoId);
         Logger.t(TAG).d("视频Id：" + videoId);
 
-        Element jsElement=element.select("script").first();
-        String jsTagString=jsElement.toString();
-        String jsScriptVideoUrl=jsTagString.substring(jsTagString.indexOf("strencode"),jsTagString.indexOf(");"));
-
-        /**
-         * element.select("script").toString().substring(element.select("script").toString().indexOf("strencode"),element.select("script").toString().indexOf(");"))
-         */
+        Element jsElement = element.select("script").first();
+        String jsTagString = jsElement.toString();
+        String jsScriptVideoUrl = jsTagString.substring(jsTagString.indexOf("strencode"), jsTagString.indexOf(");"));
 
         videoResult.setVideoUrl(jsScriptVideoUrl);
 //        String videoUrl = element.selectFirst("source").attr("src");

@@ -44,12 +44,14 @@ public class CommonHeaderInterceptor implements Interceptor {
     public Response intercept(@NonNull Chain chain) throws IOException {
         //统一设置请求头
         Request original = chain.request();
+        Response response = chain.proceed(original);
+        response.close();
+
         String header = original.header("Domain-Name");
 
         //如果是可能被重定向的header
         if (!TextUtils.isEmpty(header) && Objects.equals(header, Api.PORN9_VIDEO_DOMAIN_NAME)) {
             //返回的地址
-            Response response = chain.proceed(original);
             HttpUrl httpUrl = response.request().url();
             //读取本地地址
             String url = preferencesHelper.getPorn9VideoAddress();
@@ -67,7 +69,6 @@ public class CommonHeaderInterceptor implements Interceptor {
             }
         } else if (!TextUtils.isEmpty(header) && Objects.equals(header, Api.PORN9_FORUM_DOMAIN_NAME)) {
             //返回的地址
-            Response response = chain.proceed(original);
             HttpUrl httpUrl = response.request().url();
             //读取本地地址
             String url = preferencesHelper.getPorn9ForumAddress();

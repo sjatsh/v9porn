@@ -3,9 +3,12 @@ package com.u9porn.data.network;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
+import android.util.Log;
+import android.webkit.WebView;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+import com.u9porn.MyApplication;
 import com.u9porn.constants.Constants;
 import com.u9porn.data.cache.CacheProviders;
 import com.u9porn.data.db.entity.V9PornItem;
@@ -191,6 +194,9 @@ public class AppApiHelper implements ApiHelper {
 
     @Override
     public Observable<VideoResult> loadPorn9VideoUrl(String viewKey) {
+        WebView webview = MyApplication.getInstance().getWebView();
+        webview.loadUrl(HeaderUtils.getPlayVideoReferer(viewKey,addressHelper));
+
         String ip = addressHelper.getRandomIPAddress();
         //因为登录后不在返回用户uid，需要在此页面获取，所以当前页面不在缓存，确保用户登录后刷新当前页面可以获取到用户uid
         return v9PornServiceApi.getVideoPlayPage(viewKey, ip, HeaderUtils.getIndexHeader(addressHelper))

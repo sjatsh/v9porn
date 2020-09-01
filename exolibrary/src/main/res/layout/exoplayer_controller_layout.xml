@@ -101,7 +101,7 @@
             tools:ignore="RtlHardcoded"
             tools:text="1:06:29" />
 
-        <android.support.v7.widget.AppCompatSeekBar
+        <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/exomedia_controls_video_seek"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -176,7 +176,6 @@
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:background="@drawable/controller_speed_bg"
         android:gravity="center"
         android:orientation="vertical"

@@ -1,5 +1,6 @@
 package com.u9porn.ui.google;
 
+import android.annotation.SuppressLint;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -81,6 +82,7 @@ public class GoogleRecaptchaVerifyActivity extends MvpActivity<GoogleRecaptchaVe
         return googleRecaptchaVerifyPresenter;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
         WebSettings mWebSettings = webView.getSettings();
         //启用JavaScript。

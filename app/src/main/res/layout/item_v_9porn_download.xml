@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="90dp"
@@ -33,12 +33,12 @@
                 android:src="@drawable/start_download" />
         </FrameLayout>
 
-        <android.support.v7.widget.AppCompatTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_91porn_item_title"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_toRightOf="@+id/fl_img"
-            android:paddingLeft="5dp"
+            android:layout_toEndOf="@+id/fl_img"
+            android:paddingStart="5dp"
             android:textColor="@color/item_v9pron_title_text_color"
             android:textStyle="bold"
             app:autoSizeMaxTextSize="16sp"
@@ -46,10 +46,10 @@
             app:autoSizeStepGranularity="1sp"
             app:autoSizeTextType="uniform"
             />
-        <android.support.v4.widget.Space
+        <androidx.legacy.widget.Space
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_toRightOf="@+id/fl_img"
+            android:layout_toEndOf="@+id/fl_img"
             android:layout_below="@+id/tv_91porn_item_title"
             android:layout_above="@+id/progressBar_layout"
             />
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/common_black_white_text_color"
-                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
                 android:text="34/45MB" />
 
             <ProgressBar
@@ -74,8 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_download_filesize"
-                android:layout_toLeftOf="@+id/tv_download_speed"
-                android:paddingLeft="5dp"
+                android:layout_toStartOf="@+id/tv_download_speed"
+                android:paddingStart="5dp"
                 android:progress="48" />
 
             <TextView
@@ -84,9 +84,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/common_black_white_text_color"
                 android:layout_alignBottom="@+id/progressBar_download"
-                android:layout_toLeftOf="@+id/tv_download_progress"
+                android:layout_toStartOf="@+id/tv_download_progress"
                 android:gravity="center"
-                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
                 android:text="0KB/s" />
 
             <TextView
@@ -95,11 +95,11 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/common_black_white_text_color"
                 android:layout_alignBottom="@+id/progressBar_download"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:gravity="center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="5%" />
         </RelativeLayout>
     </RelativeLayout>
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>
